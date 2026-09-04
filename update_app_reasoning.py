@@ -3,9 +3,15 @@ Script to update app.py with reasoning trace functionality
 """
 
 import re
+import os
+
+APP_PATH = os.environ.get(
+    "AI_COSCIENTIST_APP_PATH",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "app.py"),
+)
 
 # Read the original app.py
-with open('/root/aiCoScientist/app.py', 'r') as f:
+with open(APP_PATH, 'r') as f:
     content = f.read()
 
 # 1. Add reasoning_trace to session state initialization
@@ -332,7 +338,7 @@ if tabs_match:
         )
 
 # Write updated content
-with open('/root/aiCoScientist/app.py', 'w') as f:
+with open(APP_PATH, 'w') as f:
     f.write(content)
 
 print("✅ Updated app.py with reasoning trace functionality")

@@ -1109,9 +1109,13 @@ def render_export_tab():
                 candidates_to_include = st.session_state.scored_candidates if include_all else st.session_state.scored_candidates[:3]
                 abstracts_to_include = st.session_state.abstracts if include_abstracts else []
                 
-                os.makedirs('/root/aiCoScientist/data', exist_ok=True)
+                report_dir = os.environ.get(
+                    "AI_COSCIENTIST_DATA_DIR",
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "data"),
+                )
+                os.makedirs(report_dir, exist_ok=True)
                 
-                filepath = f"/root/aiCoScientist/data/report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+                filepath = os.path.join(report_dir, f"report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf")
                 
                 success = generator.generate_report(
                     filepath=filepath,

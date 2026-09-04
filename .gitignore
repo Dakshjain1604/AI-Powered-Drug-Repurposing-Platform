@@ -74,4 +74,6 @@ Thumbs.db
 # Project specific
 data/cache/
 data/raw/
+data/reports/
 reports/*.pdf
+*.pdf
